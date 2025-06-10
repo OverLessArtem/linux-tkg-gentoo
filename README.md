@@ -7,7 +7,7 @@
 ## 🇷🇺 RUS
 
 ### Описание
-Этот форк проекта linux-tkg создан для обеспечения **полноценной поддержки Gentoo Linux с OpenRC**. Мы адаптировали систему сборки ядра, чтобы она идеально работала в экосистеме Gentoo, сохраняя все преимущества linux-tkg: производительность, гибкость и оптимизации для игр и десктопов. 🎮💻
+Этот форк проекта linux-tkg создан для обеспечения **полноценной поддержки Gentoo Linux с OpenRC**. Я адаптировал систему сборки ядра, чтобы она идеально работала в экосистеме Gentoo, сохраняя все преимущества linux-tkg: производительность, гибкость и оптимизации для игр и десктопов. 🎮💻
 
 ### Что сделано:
 - 🛠 **Поддержка OpenRC**: Заменены конфигурации Arch Linux на Gentoo-специфичные, обеспечивая полную совместимость с OpenRC вместо systemd.
@@ -17,13 +17,11 @@
 
 ### Для кого этот форк?
 - Пользователей Gentoo, предпочитающих OpenRC.
-- Геймеров и энтузиастов, желающих выжать максимум из ядра с минимальными задержками. 🎲
-- Тех, кто хочет гибко настраивать ядро под свои нужды.
 
 ### Установка
-1. Клонируйте репозиторий: `git clone https://github.com/your-username/linux-tkg-gentoo-openrc.git`
+1. Клонируйте репозиторий: `git clone https://github.com/OverLessArtem/linux-tkg-gentoo-openrc.git`
 2. Настройте `customization.cfg` под ваши нужды (версия ядра и патчи уже оптимизированы для Gentoo).
-3. Выполните сборку: `make && make install` (или используйте Gentoo-специфичные команды для установки ядра).
+3. Выполните сборку: `./install.sh install` (или используйте Gentoo-специфичные команды для установки ядра).
 4. Обновите ваш загрузчик (например, GRUB) и наслаждайтесь! 🚀
 
 ---
@@ -41,16 +39,13 @@ This fork of the [linux-tkg](https://github.com/Frogging-Family/linux-tkg) proje
 
 ### Who Is This For?
 - Gentoo users who prefer OpenRC.
-- Gamers and enthusiasts seeking a low-latency, high-performance kernel. 🎲
-- Those who want a customizable kernel tailored to their needs.
 
 ### Installation
-1. Clone the repository: `git clone https://github.com/your-username/linux-tkg-gentoo-openrc.git`
+1. Clone the repository: `git clone https://github.com/OverLessArtem/linux-tkg-gentoo-openrc.git`
 2. Customize `customization.cfg` as needed (kernel version and patches are pre-optimized for Gentoo).
-3. Build the kernel: `make && make install` (or use Gentoo-specific commands for kernel installation).
+3. Build the kernel: `./install.sh install` (or use Gentoo-specific commands for kernel installation).
 4. Update your bootloader (e.g., GRUB) and enjoy! 🚀
 
 ---
 
 🌟 **Contribute**: Feel free to submit issues or pull requests to improve this fork!  
-📬 **Contact**: Reach out via GitHub for support or suggestions.
