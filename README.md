@@ -62,83 +62,6 @@ The `customization.cfg` file offers many toggles for extra tweaks:
 
 To apply your own patch files using the provided scripts, you will need to put them in a `linux<VERSION><PATCHLEVEL>-tkg-userpatches` folder -- where _VERSION_ and _PATCHLEVEL_ are the kernel version and patch level, as specified in [linux Makefile](https://github.com/torvalds/linux/blob/master/Makefile), the patch works on, _e.g_ `linux65-tkg-userpatches` -- at the same level as the `PKGBUILD` file, with the `.mypatch` extension. The script will by default ask if you want to apply them, one by one. The option `_user_patches` should be set to `true` in the `customization.cfg` file for this to work.
 
-
-### Install procedure
-
-For all the supported linux distributions, `linux-tkg` has to be cloned with `git`. Since it keeps a clone of the kernel's sources within (`linux-src-git`, created during the first build after a fresh clone), it is recommended to keep the cloned `linux-tkg` folder and simply update it with `git pull`, the install script does the necessary cleanup at every run.
-
-#### Arch & derivatives
-
-```shell
-git clone https://github.com/Frogging-Family/linux-tkg.git
-cd linux-tkg
-# Optional: edit the "customization.cfg" file
-makepkg -si
-```
-
-The script will use a slightly modified Arch config from the `linux-tkg-config` folder, it can be changed through the `_configfile` variable in `customization.cfg`. The options selected at build-time are installed to `/usr/share/doc/$pkgbase/customization.cfg`, where `$pkgbase` is the package name.
-
-**Note:** the `base-devel` package group is expected to be installed, see [here](https://wiki.archlinux.org/title/Makepkg) for more information.
-
-#### DEB (Debian, Ubuntu and derivatives) and RPM (Fedora, SUSE and derivatives) based distributions
-
-**Important notes:**
-An issue has been reported for Ubuntu where the stock kernel cannot boot properly any longer, the whereabouts are not entirely clear (only a single user reported that, see https://github.com/Frogging-Family/linux-tkg/issues/436).
-
-The interactive `install.sh` script will create, depending on the selected distro, `.deb` or `.rpm` packages, move them in the the subfolder `DEBS` or `RPMS` then prompts to install them with the distro's package manager.
-
-```shell
-git clone https://github.com/Frogging-Family/linux-tkg.git
-cd linux-tkg
-# Optional: edit the "customization.cfg" file
-./install.sh install
-```
-
-Uninstalling custom kernels installed through the script has to be done
-manually. `install.sh` can can help out with some useful information:
-
-```shell
-cd path/to/linux-tkg
-./install.sh uninstall-help
-```
-
-The script will use a slightly modified Arch config from the `linux-tkg-config` folder, it can be changed through the `_configfile` variable in `customization.cfg`.
-
-#### Generic install
-
-The interactive `install.sh` script can be used to perform a "Generic" install by choosing `Generic` when prompted. It git clones the kernel tree in the `linux-src-git` folder, patches the code and edits a `.config` file in it. The commands to do are the following:
-
-```shell
-git clone https://github.com/Frogging-Family/linux-tkg.git
-cd linux-tkg
-# Optional: edit the "customization.cfg" file
-./install.sh install
-```
-
-The script will compile the kernel then prompt before doing the following:
-
-```shell
-sudo cp -R . /usr/src/linux-tkg-${kernel_flavor}
-cd /usr/src/linux-tkg-${kernel_flavor}
-sudo make modules_install
-sudo make install
-```
-
-**Notes:**
-
-- All the needed dependencies to patch, configure, compile or install the kernel are expected to be installed by the user beforehand.
-- If you only want the script to patch the sources in `linux-src-git`, you can use `./install.sh config`
-- `${kernel_flavor}` is a default naming scheme but can be customized with the variable `_kernel_localversion` in `customization.cfg`.
-- `_dracut_options` is a variable that can be changed in `customization.cfg`.
-- `_libunwind_replace` is a variable that can be changed in `customization.cfg` for replacing `libunwind` with `llvm-libunwind`.
-- The script uses Arch's `.config` file as a base. A custom one can be provided through `_configfile` in `customization.cfg`.
-- The installed files will not be tracked by your package manager and uninstalling requires manual intervention.
-  `./install.sh uninstall-help` can help with useful information if your install procedure follows the `Generic` approach.
-- Installing the kernel with `make install` calls `/sbin/installkernel` (see [here](https://docs.kernel.org/kbuild/kbuild.html#installkernel)) to put the kernel at the right place and trigger an initramfs (and UKI) generation,
-  check your distro's documentation on how to configure it to your needs
-  - [arch](https://wiki.archlinux.org/title/Kernel-install)
-  - [gentoo](https://wiki.gentoo.org/wiki/Installkernel)
-
 #### Gentoo
 
 The interactive `install.sh` script supports Gentoo by following the same procedure as `Generic`, with minor additions
@@ -155,8 +78,3 @@ cd linux-tkg
 # Optional: edit the "customization.cfg" file
 ./install.sh install
 ```
-
-**Notes:**
-
-- On OpenRC, in case of boot issues, try setting `_configfile="running-kernel"` in `customization.cfg`.
-  - This will use the running kernel's `.config` file instead of Arch's.
