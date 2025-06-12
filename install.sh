@@ -171,12 +171,12 @@ if [ "$1" = "install" ]; then
 
   if [ -z "$_kernel_localversion" ]; then
     if [ "$_preempt_rt" = "1" ]; then
-      _kernel_flavor="tkg-${_cpusched}-rt${_compiler_name}"
+      _kernel_flavor="gentoo"
     else
-      _kernel_flavor="tkg-${_cpusched}${_compiler_name}"
+      _kernel_flavor="gentoo"
     fi
   else
-    _kernel_flavor="tkg-${_kernel_localversion}"
+    _kernel_flavor="gentoo-${_kernel_localversion}"
   fi
 
   # Setup kernel_subver variable
@@ -319,7 +319,7 @@ if [ "$1" = "install" ]; then
 
   elif [[ "$_distro" =~ ^(Gentoo|Generic)$ ]]; then
 
-    ./scripts/config --set-str LOCALVERSION "-${_kernel_flavor}"
+    ./scripts/config --set-str LOCALVERSION "-gentoo"
 
     if [[ "$_sub" = rc* ]]; then
       _kernelname=$_basekernel.${_kernel_subver}-${_sub}-$_kernel_flavor
